@@ -3,11 +3,11 @@ name: Publish Docker image
 on:
   push:
     branches: 
-      - "main"
+      - "main"  # Trigger on push to main branch
   release:
     types: 
-      - published
-  workflow_dispatch: 
+      - published  # Trigger on release publish
+  workflow_dispatch:  # Manual trigger
 
 env:
   IMAGE_NAME: ${{ github.repository }}
@@ -40,3 +40,4 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/hubproxy:latest
             ${{ secrets.DOCKER_USERNAME }}/hubproxy:${{ github.event.release.tag_name || 'latest' }}
+            ${{ secrets.DOCKER_USERNAME }}/hubproxy:${{ github.run_id }}  # 使用 GitHub Actions 运行 ID 作为标签
