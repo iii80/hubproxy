@@ -3,11 +3,11 @@ name: Publish Docker image
 on:
   push:
     branches: 
-      - "main"  # Trigger on push to main branch
+      - "main"
   release:
     types: 
-      - published  # Trigger on release publish
-  workflow_dispatch:  # Manual trigger
+      - published
+  workflow_dispatch: 
 
 env:
   IMAGE_NAME: ${{ github.repository }}
@@ -38,5 +38,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name || 'latest' }}
+            ${{ secrets.DOCKER_USERNAME }}/hubproxy:latest
+            ${{ secrets.DOCKER_USERNAME }}/hubproxy:${{ github.event.release.tag_name || 'latest' }}
