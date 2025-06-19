@@ -10,7 +10,7 @@ on:
   workflow_dispatch:  # Manual trigger
 
 env:
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: hubproxy
 
 jobs:
   build-and-push-image:
@@ -38,11 +38,6 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/hubproxy:latest  # latest 标签
-            ${{ secrets.DOCKER_USERNAME }}/hubproxy:${{ github.run_id }}  # 使用 GitHub Actions 运行 ID 作为标签
-            ${{ secrets.DOCKER_USERNAME }}/hubproxy:${{ github.event.release.tag_name || 'latest' }}  # 如果是发布版本，使用版本号作为标签
+            iii80/hubproxy:latest  # latest 标签
           load: false
           no-cache: false
-          pull: false
-          github-token: ${{ secrets.GITHUB_TOKEN }}  # 如果需要 GitHub 的 token
-
